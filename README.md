@@ -6,17 +6,15 @@ This is a collection of mathematical animations built using [Manim](https://www.
 - Euclidean domains and number theory
 - Field extensions and algebraic structures
 
----
-
 ## 📽️ Preview
 
 ### Gaussian Integers as a Euclidean Domain
 
 <div align="center">
-  <img src="media/previews/gaussian-triangle.gif" width="500" alt="Gaussian Integer Triangle Animation" />
+  <img src="media/GaussianLattice.gif" width="500" alt="Gaussian Integer Triangle Animation" />
 </div>
 
-This animation shows that for every complex number *z*, there exists a Gaussian integer α in **ℤ[i]** that is "close enough" to *z*. The visual demonstrates how the lattice structure of **ℤ[i]** guarantees norm reduction, supporting its Euclidean domain property.
+The above is a shortened animation of the Gaussian integer lattice, showing that for every complex number *z*, there exists a Gaussian integer α in **ℤ[i]** that is "close enough" to *z*. The visual demonstrates how the lattice structure of **ℤ[i]** guarantees norm reduction, supporting its Euclidean domain property.
 
 ---
 
