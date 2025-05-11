@@ -13,11 +13,13 @@ class GaussianLattice(MovingCameraScene):
 
         re_text = Text("Re").scale(0.5)
         im_text = Text("Im").scale(0.5)
+        zi_text = MathTex(r"\mathbb{Z}[i]").scale(1.3)
 
         re_label = re_text.next_to(axes.x_axis.get_end(), RIGHT)
         im_label = im_text.next_to(axes.y_axis.get_end(), UP)
+        zi_label = zi_text.to_corner(UL)    
 
-        self.play(Create(axes), Write(re_label), Write(im_label))
+        self.play(Create(axes), Write(re_label), Write(im_label), Write(zi_label))
         self.wait(1)
 
         # Group dots to animate all at once
@@ -46,19 +48,21 @@ class GaussianLattice(MovingCameraScene):
         self.play(FadeOut(vector), FadeOut(label))
         self.wait(1)
 
+        circles = VGroup()
+        for a in range(-5,6):
+            for b in range(-5,6):
+                center = axes.c2p(a,b)
+                circle = Circle(radius=0.707, color=WHITE, stroke_opacity=0.4).move_to(center)
+                circles.add(circle)
+            
+        self.play(FadeIn(circles, lag_ratio=0.02))
+        self.wait(2)
+        self.play(FadeOut(circles, lag_ratio=0.02))
+        self.wait(1)
+
         frame = self.camera.frame
         self.play(frame.animate.set(width=2.5).move_to(axes.c2p(3.5,3.5)))
         self.wait(1)
-
-    #circles = VGroup()
-    #    for a in range(-5,6):
-    #        for b in range(-5,6):
-    #            center = axes.c2p(a,b)
-    #            circle = Circle(radius=0.707, color=WHITE, stroke_opacity=0.4).move_to(center)
-    #            circles.add(circle)
-    #    
-    #    self.play(FadeIn(circles, lag_ratio=0.02))
-    #    self.wait(2)
     
         zdot = Dot(point=axes.c2p(3.5, 3.5), radius=0.05, color=YELLOW)
         alpha_dot = Dot(axes.c2p(4,4), radius=0.05, color=WHITE)
@@ -89,7 +93,20 @@ class GaussianLattice(MovingCameraScene):
 
         self.play(Write(hyp_label), Write(leg1_label))
         self.wait(1)
+        self.play(FadeOut(VGroup(zi_label, dots, axes, triangle, zdot, z_label, hyp_label, leg1_label, alpha_label, re_label, im_label)))
+        self.wait(0.5)
+        self.play(frame.animate.set(width=14).move_to(ORIGIN))
 
+        inequality = MathTex(
+            r"\forall z \in \mathbb{C}, \ \exists \alpha \in \mathbb{Z}[i] \text{ such that}",
+            r"\left| z - \alpha \right| \leq \frac{\sqrt{2}}{2}",
+            font_size = 36
+        ).arrange(DOWN).move_to(ORIGIN)
+
+        inequality[1].set_color(YELLOW)
+
+        self.play(Write(inequality))
+        self.wait(2)
 
 
 
